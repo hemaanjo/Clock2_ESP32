@@ -5,7 +5,7 @@
 #include "time.h"
 #include "utcOffset.h"
 #include "config.h"
-//#include "grid.h"
+#include "grid.h"
 
 void Time::setup() {
   Time::ntpClient.begin();
@@ -23,7 +23,7 @@ void Time::loop() {
   if(s != Time::second) {
     Time::second = s;
     //if((s%5)==0) {
-    //  Serial.print(" ");Serial.print(s);
+    Serial.print(".");//Serial.print(s);
     //  }
     }
 
@@ -43,11 +43,11 @@ void Time::loop() {
       Serial.println((m%5));
     }
     
-    //Grid::setTime(Time::hour, Time::minute);
+    Grid::setTime(Time::hour, Time::minute);
 
     //Serial.println("Config::automatic_timezone" + Config::automatic_timezone);
     if (Config::automatic_timezone) {
-      Config::timezone = UtcOffset::getLocalizedUtcOffset();
+      Config::timezone = UtcOffset::updateLocalizedUtcOffset();
       Serial.print("per Minute AutoZone="); Serial.println(Config::timezone);
       Time::ntpClient.setTimeOffset(Config::timezone);
     }

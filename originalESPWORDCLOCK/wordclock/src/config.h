@@ -68,8 +68,8 @@
 #endif
 
 /* Data PIN, where the LED strip is connected to */
-#ifndef PIN4DATA
-  #define PIN4DATA 22
+#ifndef DATA_PIN
+  #define DATA_PIN D4
 #endif
 
 #ifndef CONSUMPTION_D1_MINI
@@ -80,24 +80,12 @@
   #define CONSUMPTION_PER_LED 60 // 60mA per LED on full brightness in white.
 #endif
 
-#ifndef NTPSERVER
-  #define NTPSERVER "pool.ntp.org"
-#endif
-
 /***********************************************
  * CONFIG END
  **********************************************/
 
 class Config {
   public:
-    static String plugin_name;
-    static bool ambilight;
-    static int ambilight_leds;
-    static int ambilight_startIDX;
-    static color_t ambilight_color;
-    static String Startup_Text;
-    static bool useTypewriter;
-
     static color_t color_bg;
     static color_t color_fg;
     static int power_supply;
@@ -111,6 +99,5 @@ class Config {
 
     static void save();
     static void load();
-    static void checkFileSystem();
 };
 #endif

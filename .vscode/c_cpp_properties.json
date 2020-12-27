@@ -4,9 +4,9 @@
             "name": "Win32",
             "includePath": [
                 "C:\\Users\\josef\\AppData\\Local\\Arduino15\\packages\\esp32\\tools\\**",
-                "D:\\programme\\onedrive\\github.local\\arduino\\libraries\\**",
-                "D:\\programme\\arduino-1.8.13\\libraries\\**",
                 "C:\\Users\\josef\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\1.0.4\\**",
+                "C:\\Users\\josef\\AppData\\Local\\Arduino15\\staging\\libraries\\**",
+                "D:\\programme\\arduino-1.8.13\\libraries\\**",
                 "D:\\programme\\onedrive\\Dokumente\\Arduino\\libraries\\**"
             ],
             "forcedInclude": [],

@@ -44,12 +44,5 @@
  */
 #define GRID_SINGLE_MINUTES 0
 
-/* Data PIN, where the LED strip is connected to 
-beim ESP32: 3. PIN oben rechts / OBEN=Antenne VORNE = NICHT hinten ;-)
-*/
-#define PIN4DATA 22
-
-/* Time Server etc. */
-#define NTPSERVER "pool.ntp.org"
-#define TIMEZONE "Europe/Berlin"
-#define GRID_LANGUAGE de_DE
+/* Data PIN, where the LED strip is connected to */
+#define DATA_PIN 22

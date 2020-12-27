@@ -1,30 +1,11 @@
 #include <FS.h>
-#include <SPIFFS.h>
 #include <ArduinoJson.h>
 
 #include "config.h"
 #include "types.h"
 #include "time.h"
-//#include "led.h"
+#include "led.h"
 #include "utcOffset.h"
-
-void Config::checkFileSystem() {
-    String dirname = "/";
-    uint level =0;
-    //SPIFFS fs=;
-    if(!SPIFFS.begin(true)){
-        Serial.println("SPIFFS Mount Failed");
-        bool formatted = SPIFFS.format();
-        if ( formatted ) {
-          Serial.println("SPIFFS formatted successfully");
-          SPIFFS.begin();
-        } else {
-          Serial.println("Error formatting");
-          return;
-        }
-    }
-}
-
 
 void Config::save() {
   File file = SPIFFS.open("/wordclock_config.json", "w");
@@ -62,7 +43,6 @@ void Config::save() {
   file.close();
 }
 
-
 void Config::load() {
   Config::color_bg.r = 0;
   Config::color_bg.g = 0;
@@ -83,24 +63,12 @@ void Config::load() {
   Config::dnd_start.minute = -1;
   Config::dnd_end.hour = -1;
   Config::dnd_end.minute = -1;
-  Config::ntp = NTPSERVER;
-
-  Config::plugin_name = "clock2";
-  Config::useTypewriter = true;
-  Config::ambilight = true;
-  Config::ambilight_color.r = 35;
-  Config::ambilight_color.g = 45;
-  Config::ambilight_color.b = 0;
-  Config::ambilight_leds = 120;
-  Config::ambilight_startIDX = 113;
-  Config::Startup_Text = " c l o c k 2 ";
+  Config::ntp = "pool.ntp.org";
 
   File file = SPIFFS.open("/wordclock_config.json", "r");
 
   if(!file) {
     Serial.println("Failed to open config file.");
-    #define FORMAT_SPIFFS_IF_FAILED true
-
     Config::save();
     return;
   }
@@ -122,17 +90,17 @@ void Config::load() {
     Config::power_supply = doc["power_supply"].as<int>();
   }
 
- // if(doc["brightness"]) {
- //   Config::brightness =
- //     (doc["brightness"].as<double>() > Led::getMaxBrightnessPercnt()) ? Led::getMaxBrightnessPercnt() : doc["brightness"].as<double>();
- // }
+  if(doc["brightness"]) {
+    Config::brightness =
+      (doc["brightness"].as<double>() > Led::getMaxBrightnessPercnt()) ? Led::getMaxBrightnessPercnt() : doc["brightness"].as<double>();
+  }
 
   if (doc["tz_auto"]) {
     Config::automatic_timezone = doc["tz_auto"].as<bool>();
   }
 
   if (Config::automatic_timezone) {
-    Config::timezone = UtcOffset::updateLocalizedUtcOffset();
+    Config::timezone = UtcOffset::getLocalizedUtcOffset();
   } else {
     Config::timezone = doc["timezone"].as<int>();
   }
@@ -163,10 +131,3 @@ bool Config::dnd_active{};
 clock_time_t Config::dnd_start{};
 clock_time_t Config::dnd_end{};
 String Config::ntp{};
-String Config::plugin_name{};
-bool Config::ambilight{};
-int Config::ambilight_leds{};
-int Config::ambilight_startIDX{};
-color_t Config::ambilight_color{};
-String Config::Startup_Text{};
-bool Config::useTypewriter{};
