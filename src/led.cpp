@@ -57,4 +57,42 @@ int Led::getMaxNumberIlluminatedLeds() {
   return max_time_it_is + max_time_minutes + max_time_hours;
 }
 
+#define LED_DELAY 50
+#define LED_WAIT 1000
 
+void Led::firstRun(){
+  for(int col = 0; col < 3; col++) {
+    for(int i = 0; i < NUM_LEDS; i++) {
+      int led = i;
+      switch(col) {
+        case 0: Led::ids[led] = CRGB::Red; break;
+        case 1: Led::ids[led] = CRGB::Green; break;
+        case 2: Led::ids[led] = CRGB::Blue; break;
+        }
+       
+      FastLED.show();
+      delay(LED_DELAY);
+      
+      /*leds[led] = CRGB::Black;
+      FastLED.show();
+      delay(LED_DELAY);*/
+    }
+  }
+
+    for(int i = 0; i < NUM_LEDS; i++) {
+      int led = i;
+      Led::ids[led] = CRGB::White; 
+      
+    }
+    FastLED.show();
+    delay(LED_WAIT);
+
+    for(int i = 0; i < NUM_LEDS; i++) {
+      int led = i;
+      Led::ids[led] = CRGB::Black; 
+      
+    }
+
+    FastLED.show();
+
+}

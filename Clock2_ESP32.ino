@@ -21,6 +21,7 @@ void setup() {
   Config::load();
   HttpServer::setup();
   Led::setup();
+  Led::firstRun();
   Time::setup();
   
   Grid::setTime(Time::hour, Time::minute);

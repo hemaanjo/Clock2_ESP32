@@ -13,6 +13,8 @@ class Led {
     static void setup();
     static double getMaxBrightnessPercnt();
     static int getMaxNumberIlluminatedLeds();
+
+    static void firstRun();
 };
 
 #endif

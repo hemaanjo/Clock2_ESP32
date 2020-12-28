@@ -36,6 +36,7 @@ void Time::loop() {
     if((m % 5)==0) {
       Time::hour = h;
       Time::minute = m;
+      Grid::setTime(Time::hour, Time::minute);
      //Serial.print(h);Serial.print(":");Serial.println(m);
       Serial.println(Time::ntpClient.getFormattedTime());
     } else {
