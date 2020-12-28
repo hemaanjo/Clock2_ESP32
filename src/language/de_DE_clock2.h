@@ -1,7 +1,7 @@
-#ifndef WORDCLOCK_GRID_LANG_DE_DE_H
-#define WORDCLOCK_GRID_LANG_DE_DE_H
+#ifndef WORDCLOCK_GRID_LANG_de_DE_clock2_H
+#define WORDCLOCK_GRID_LANG_de_DE_clock2_H
 
-class Grid_de_DE {
+class Grid_de_DE_clock2 {
 	public:
 	static int time_it_is[5];
 	static int time_minutes[12][12];
@@ -10,6 +10,6 @@ class Grid_de_DE {
 	static void setTime(int hour, int minute);
 };
 
-typedef class Grid_de_DE Grid;
+typedef class Grid_de_DE_clock2 Grid;
 
 #endif

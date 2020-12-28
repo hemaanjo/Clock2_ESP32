@@ -32,7 +32,7 @@ void Controller::saveColor() {
 
   Config::save();
   Grid::setTime(Time::hour, Time::minute);
-
+  
   HttpServer::web.send(200, "text/html", "");
 }
 
@@ -78,7 +78,7 @@ void Controller::saveDnd() {
   HttpServer::web.send(200, "text/html", "");
 }
 
-void Controller::deleteWiFi() {
+void Controller::restart() {
   /*Wifi::reset();*/
   ESP.restart();
   HttpServer::web.send(200, "text/html", "");

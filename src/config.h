@@ -50,10 +50,12 @@
  * -------
  * 1: de-DE:     german
  * 2: de-DE_alt: german alternative
+ * 3: clock2: ????
  */
 #ifndef GRID_LANGUAGE
-  #define GRID_LANGUAGE de_DE
+#define GRID_LANGUAGE de_DE
 //#define GRID_LANGUAGE de_DE_alt
+//#define GRID_LANGUAGE clock2
 #endif
 
 /* Position of single minute LEDs

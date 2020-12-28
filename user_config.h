@@ -24,7 +24,7 @@
  * 2: buttom-left
  * 3: buttom-right
  */
-#define GRID_FIRST 0
+#define GRID_FIRST 1
 
 /* Grid language
  *  
@@ -32,6 +32,7 @@
  * -------
  * 1: de_DE:     german
  * 2: de_DE_alt: german alternative
+ * 3: de_DE_clock2:    Biegert & Funk !original!
  */
 #define GRID_LANGUAGE de_DE
 
@@ -52,4 +53,3 @@ beim ESP32: 3. PIN oben rechts / OBEN=Antenne VORNE = NICHT hinten ;-)
 /* Time Server etc. */
 #define NTPSERVER "pool.ntp.org"
 #define TIMEZONE "Europe/Berlin"
-#define GRID_LANGUAGE de_DE

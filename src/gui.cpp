@@ -202,6 +202,7 @@ String Gui::createContent() {
   content += "<section id=\"color\" class=\"active\">";
   content += "<div><label>Vordergrundfarbe</label><input id=\"fg\" value=\"#" + Color::rgbToHex(Config::color_fg) + "\" type=\"color\"></div>";
   content += "<div><label>Hintergrundfarbe</label><input id=\"bg\" value=\"#" + Color::rgbToHex(Config::color_bg) + "\" type=\"color\"></div>";
+    
   content += "<div><label>Stromversorgung in mA</label><input id=\"power_supply\" type=\"number\" min=0 step=\"100\" value=\"" + String(Config::power_supply) + "\"></div>";
   content += "<div>";
   content += "<label>Helligkeit</label>";
@@ -218,6 +219,9 @@ String Gui::createContent() {
 
   content += "</select>";
   content += "</div>";
+
+  content += "<div><label>Ambilightfarbe</label><input id=\"amcol\" value=\"#" + Color::rgbToHex(Config::ambilight_color) + "\" type=\"color\"></div>";
+
   content += "</section>";
 
   content += "<section id=\"time\">";
@@ -281,8 +285,8 @@ String Gui::createContent() {
   content += "</section>";
 
   content += "<section id=\"wifi\">";
-  content += "<button id=\"reset_wifi\" type=\"submit\">WiFi Einstellungen zurücksetzen</button>";
-  content += "<div id=\"reset_wifi_message\">Die WiFi Einstellungen wurden zurückgesetzt. Es besteht keine Verbindung mehr zu der WordClock. Um die WordClock weiterhin zu verwenden muss das WiFi erneut eingerichtet werden.</div>";
+  content += "<button id=\"reset_wifi\" type=\"submit\">ESP32 reset</button>";
+  content += "<div id=\"reset_wifi_message\">Die Uhr wurde zurückgesetzt.<br>Bitte Webinterface aktualisieren (F5).</div>";
   content += "</section>";
   content += "</main>";
 

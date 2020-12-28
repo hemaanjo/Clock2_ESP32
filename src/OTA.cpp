@@ -20,8 +20,8 @@ void ota::setup() {
   // ArduinoOTA.setPort(3232);
 
   // Hostname defaults to esp3232-[MAC]
-  ArduinoOTA.setHostname("Clock2esp32");
-  //Serial.println("setHostname: Clock2esp32");
+  ArduinoOTA.setHostname("clock2esp32");
+  //Serial.println("setHostname: clock2esp32");
   // No authentication by default
   // ArduinoOTA.setPassword("admin");
 

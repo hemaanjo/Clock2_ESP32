@@ -4,8 +4,6 @@
 #include "../user_config.h"
 #include "config.h"
 
-#include "language/de_DE.h"
-
 #ifdef GRID_LANGUAGE
   #define QUOTE(x) XQUOTE(x)
   #define XQUOTE(x) #x

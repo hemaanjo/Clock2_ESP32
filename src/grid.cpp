@@ -4,5 +4,5 @@
 #include "grid.h"
 #include "config.h"
 
-static Grid grid;
+//static Grid grid;
 
