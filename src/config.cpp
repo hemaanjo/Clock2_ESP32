@@ -56,6 +56,17 @@ void Config::save() {
   doc["dnd_end_hour"] = Config::dnd_end.hour;
   doc["dnd_end_minute"] = Config::dnd_end.minute;
   doc["ntp"] = Config::ntp;
+  doc["plugin_name"] = Config::plugin_name;
+  doc["ambilight"] = Config::ambilight;
+  doc["ambilight_leds"] = Config::ambilight_leds;
+  doc["ambilight_startIDX"] = Config::ambilight_startIDX;
+  doc["ambilight_color_r"] = Config::ambilight_color.r;
+  doc["ambilight_color_g"] = Config::ambilight_color.g;
+  doc["ambilight_color_b"] = Config::ambilight_color.b;
+  doc["Startup_Text"] = Config::Startup_Text;
+  doc["useTypeWriter"] = Config::useTypewriter;
+
+  
 
   serializeJson(doc, file);
 
@@ -94,6 +105,7 @@ void Config::load() {
   Config::ambilight_leds = 120;
   Config::ambilight_startIDX = 113;
   Config::Startup_Text = " c l o c k 2 ";
+  Config::useTypewriter = false;
 
   File file = SPIFFS.open("/wordclock_config.json", "r");
 
@@ -150,6 +162,15 @@ void Config::load() {
   Time::ntpClient.setPoolServerName(Config::ntp.c_str());
   Time::ntpClient.setTimeOffset(Config::timezone);
 
+  Config::plugin_name = doc["plugin_name"].as<String>();
+  Config::ambilight=doc["ambilight"].as<bool>();
+  Config::ambilight_leds = doc["ambilight_leds"].as<int>();
+  Config::ambilight_startIDX=doc["ambilight_startIDX"].as<int>();
+  Config::ambilight_color.r = doc["ambilight_color_r"].as<int>();
+  Config::ambilight_color.g = doc["ambilight_color_g"].as<int>();
+  Config::ambilight_color.b = doc["ambilight_color_b"].as<int>();
+  Config::Startup_Text = doc["Startup_Text"].as<String>();
+  Config::useTypewriter = doc["useTypeWriter"].as<bool>();
   file.close();
 }
 

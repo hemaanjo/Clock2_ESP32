@@ -2,7 +2,10 @@
 	"folders": [
 		{
 			"path": "."
-			
+		},
+		{
+			"name": "Clock2_ESP32_VSC",
+			"path": "..\\Clock2_ESP32_VSC"
 		}
 	],
 	"settings": {

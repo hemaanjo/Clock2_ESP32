@@ -194,6 +194,7 @@ String Gui::createScript() {
   return content;
 }
 
+
 String Gui::createContent() {
   String content = "";
 
@@ -202,11 +203,18 @@ String Gui::createContent() {
   content += "<section id=\"color\" class=\"active\">";
   content += "<div><label>Vordergrundfarbe</label><input id=\"fg\" value=\"#" + Color::rgbToHex(Config::color_fg) + "\" type=\"color\"></div>";
   content += "<div><label>Hintergrundfarbe</label><input id=\"bg\" value=\"#" + Color::rgbToHex(Config::color_bg) + "\" type=\"color\"></div>";
-    
+
+  
   content += "<div><label>Stromversorgung in mA</label><input id=\"power_supply\" type=\"number\" min=0 step=\"100\" value=\"" + String(Config::power_supply) + "\"></div>";
   content += "<div>";
   content += "<label>Helligkeit</label>";
   content += "<select id=\"brightness\">";
+
+/*
+  content += "<div><label>Ambilightfarbe</label><input id=\"bg\" value=\"#" + Color::rgbToHex(Config::ambilight_color) + "\" type=\"color\"></div>";
+  content += "<div><label>Aktives Plugin</label><input id=\"bg\" value=\"#" + Config::plugin_name + "\" </div>";
+*/  
+
 
   for (double brightness_percnt = 0.0; brightness_percnt < Led::getMaxBrightnessPercnt(); brightness_percnt+=0.1) {
     String label = String((int) (brightness_percnt * 100 + 0.5)) + "&percnt;"; // adding 0.5 for rounding.
@@ -220,8 +228,9 @@ String Gui::createContent() {
   content += "</select>";
   content += "</div>";
 
+/*
   content += "<div><label>Ambilightfarbe</label><input id=\"amcol\" value=\"#" + Color::rgbToHex(Config::ambilight_color) + "\" type=\"color\"></div>";
-
+*/
   content += "</section>";
 
   content += "<section id=\"time\">";
@@ -292,6 +301,7 @@ String Gui::createContent() {
 
   return content;
 }
+
 
 String Gui::createFooter() {
   String content = "";

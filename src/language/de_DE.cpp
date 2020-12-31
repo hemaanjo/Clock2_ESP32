@@ -72,7 +72,7 @@ void Grid_de_DE::setTime(int hour, int minute) {
   FastLED.show();
 }
 
-//String Grid_de_DE_clock2::Layout = "clock2";
+//String Grid_de_clock2::Layout = "clock2";
 /*
 0     1     2     3     4     5     6     7     8     9     10
 E     S     K     I     S     T     A     F     Ü     N     F  
@@ -120,7 +120,7 @@ int Grid_de_DE::time_hours[12][6] = {
   { 62,  63,  64,  65,  -1,  -1}, // zwei
   { 66,  67,  68,  69,  -1,  -1}, // drei
   { 73,  74,  75,  76,  -1,  -1}, // vier
-  { 52,  53,  54,  55,  -1,  -1}, // fünf
+  { 51,  52,  53,  54,  -1,  -1}, // fünf
   { 77,  78,  79,  80,  81,  -1}, // sechs
   { 88,  89,  90,  91,  92,  93}, // sieben
   { 84,  85,  86,  87,  -1,  -1}, // acht
