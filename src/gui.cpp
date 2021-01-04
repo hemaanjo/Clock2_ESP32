@@ -24,6 +24,23 @@ String Gui::htmlOption(const String& label, const String& value, const String& s
   return content;
 }
 
+String Gui::getAmbilightForm() {
+  String content = "";
+
+  content += "<div>\n";
+  content += "<label>Ambilightfarbe</label>\n";
+  content += "<input name=\"ambifg\" value=\"#" + Color::rgbToHex(Config::ambilight_color) + "\" type=\"color\">\n";
+  content += "</div>\n";
+  content += "<div>\n";
+  content += "<label>Ambilight</label>\n";
+  content += "<select name=\"ambi_active\">\n";
+  content += Gui::htmlOption("Inaktiv", String(0), String(Config::ambilight));
+  content += Gui::htmlOption("Aktiv", String(1), String(Config::ambilight));
+  content += "</select>\n";
+  content += "</div>\n";
+  return content;
+}
+
 String Gui::getTimeForm() {
   String content = "";
 
@@ -54,6 +71,9 @@ String Gui::getTimeForm() {
 
   content += "</select>";
   content += "</div>";
+
+  //content += Gui::getAmbilightForm();
+
   content += "<div>";
   content += "<label>Zeitzone</label>";
   content += "<select name=\"tz\">";
@@ -228,6 +248,7 @@ String Gui::createContent() {
   content += "</select>";
   content += "</div>";
 
+  content += Gui::getAmbilightForm();
 /*
   content += "<div><label>Ambilightfarbe</label><input id=\"amcol\" value=\"#" + Color::rgbToHex(Config::ambilight_color) + "\" type=\"color\"></div>";
 */
