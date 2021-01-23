@@ -6,7 +6,8 @@ class Grid_de_clock2 {
 	static int time_it_is[5];
 	static int time_minutes[12][12];
 	static int time_hours[12][6];
-
+    
+	static void setSecond(int second);
 	static void setTime(int hour, int minute);
 };
 

@@ -49,14 +49,32 @@
 beim ESP32: 3. PIN oben rechts / OBEN=Antenne VORNE = NICHT hinten ;-)
 */
 #define PIN4DATA 22
+/*Stromversorgung in mA -- sollte aus dem Webinterface raus*/
+#define AMPERE 12000 
+/*bei OTA Ausgabe über SerialBT*/
+//#define SerialBT = 1
 
 /* Time Server etc. */
 #define NTPSERVER "pool.ntp.org"
 #define TIMEZONE "Europe/Berlin"
 
+/* activePlugin 
+*
+* Options
+* -------
+* PLUGINNAME as String
+* */
+#define PLUGIN_NAME "clock2"
+
+#define WLANSID "dama"
+#define WLANPWD "8136699728311780"
+
 /* Ambilight 
  * 
  * Options
  * -------
- * 
+ * 0: inactive
+ * 1: active
+ * 3: seconds
  * */
+#define AMBILIGHT 1

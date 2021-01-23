@@ -23,7 +23,9 @@ void Time::loop() {
   if(s != Time::second) {
     Time::second = s;
     //if((s%5)==0) {
-    Serial.print(".");//Serial.print(s);
+    if(Config::ambilight == 1) {
+      Serial.print(".");//Serial.print(s);
+      }
     //  }
     }
 

@@ -7,9 +7,8 @@
 void ota::setup() {
     Serial.begin(115200);
     Serial.println("Booting");
-
     WiFi.mode(WIFI_STA);
-    WiFi.begin("dama", "8136699728311780");
+    WiFi.begin(WLANSID, WLANPWD);
     while (WiFi.waitForConnectResult() != WL_CONNECTED) {
         Serial.println("Connection Failed! Rebooting...");
         delay(5000);
@@ -41,7 +40,7 @@ void ota::setup() {
       Serial.println("Start updating " + type);
     })
     .onEnd([]() {
-      Serial.println("\nEnd");
+      Serial.println("End");
     })
     .onProgress([](unsigned int progress, unsigned int total) {
       Serial.printf("Progress: %u%%\r", (progress / (total / 100)));

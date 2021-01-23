@@ -84,7 +84,7 @@ void Config::load() {
   Config::color_fg.b = 255;
 
   Config::power_supply = 500; // default: 500mA (USB 2.0 specification)
-  Config::brightness = 0.5;
+  Config::brightness = 0.2;
 
   Config::automatic_timezone = true;
   Config::timezone = 0;
@@ -96,17 +96,16 @@ void Config::load() {
   Config::dnd_end.minute = -1;
   Config::ntp = NTPSERVER;
 
-  Config::plugin_name = "clock2";
+  Config::plugin_name = PLUGIN_NAME;
   Config::useTypewriter = true;
-  Config::ambilight = true;
+  Config::ambilight = AMBILIGHT;
   Config::ambilight_color.r = 35;
   Config::ambilight_color.g = 45;
   Config::ambilight_color.b = 0;
   Config::ambilight_leds = 120;
   Config::ambilight_startIDX = 113;
   Config::Startup_Text = " c l o c k 2 ";
-  Config::useTypewriter = false;
-
+  
   File file = SPIFFS.open("/wordclock_config.json", "r");
 
   if(!file) {
@@ -185,7 +184,7 @@ clock_time_t Config::dnd_start{};
 clock_time_t Config::dnd_end{};
 String Config::ntp{};
 String Config::plugin_name{};
-bool Config::ambilight{};
+int Config::ambilight{};
 int Config::ambilight_leds{};
 int Config::ambilight_startIDX{};
 color_t Config::ambilight_color{};

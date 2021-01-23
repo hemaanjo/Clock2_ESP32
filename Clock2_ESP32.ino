@@ -10,8 +10,6 @@
 #include "src/gui.h"
 #include "src/controller.h"
 
-
-
 void setup() {
   // put your setup code here, to run once:
   Serial.begin(115200);
@@ -23,7 +21,6 @@ void setup() {
   Led::setup();
   Led::firstRun();
   Time::setup();
-  
   Grid::setTime(Time::hour, Time::minute);
 }
 

@@ -2,10 +2,6 @@
 	"folders": [
 		{
 			"path": "."
-		},
-		{
-			"name": "Clock2_ESP32_VSC",
-			"path": "..\\Clock2_ESP32_VSC"
 		}
 	],
 	"settings": {
@@ -18,7 +14,10 @@
 			"unordered_set": "cpp",
 			"vector": "cpp",
 			"initializer_list": "cpp",
-			"*.ccp": "cpp"
-		}
+			"*.ccp": "cpp",
+			"istream": "cpp",
+			"ostream": "cpp"
+		},
+		"arduino.path": "D:\\programme\\arduino-1.8.13"
 	}
 }

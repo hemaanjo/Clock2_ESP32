@@ -1,4 +1,3 @@
-#include <FastLED.h>
 
 #include "grid.h"
 #include "led.h"
@@ -9,6 +8,8 @@ CRGB Led::ids[NUM_LEDS];
 void Led::setup() 
 
 {
+  // Led::numled_Grid = Config::ambilight_leds;
+  
   FastLED.addLeds<NEOPIXEL, PIN4DATA>(Led::ids, NUM_LEDS);
   FastLED.setBrightness(50);
 
@@ -57,7 +58,7 @@ int Led::getMaxNumberIlluminatedLeds() {
   return max_time_it_is + max_time_minutes + max_time_hours;
 }
 
-#define LED_DELAY 50
+#define LED_DELAY 20
 #define LED_WAIT 1000
 
 void Led::firstRun(){

@@ -28,6 +28,7 @@ String Gui::getAmbilightForm() {
   String content = "";
 
   content += "<div>\n";
+  content += "<label>Plugin: " +Config::plugin_name + "</label>\n";
   content += "<label>Ambilightfarbe</label>\n";
   content += "<input name=\"ambifg\" value=\"#" + Color::rgbToHex(Config::ambilight_color) + "\" type=\"color\">\n";
   content += "</div>\n";

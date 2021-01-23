@@ -6,6 +6,10 @@
 #include "../dnd.h"
 #include "../led.h"
 
+void Grid_de_clock2::setSecond(int second) {
+ //   
+}
+
 void Grid_de_clock2::setTime(int hour, int minute) {
   if(hour == -1 || minute == -1) {
 	return;

@@ -86,6 +86,11 @@
   #define NTPSERVER "pool.ntp.org"
 #endif
 
+#ifndef PLUGIN_NAME
+  #define PLUGIN_NAME "--NO Active Plugin--"
+#endif
+
+
 /***********************************************
  * CONFIG END
  **********************************************/
@@ -93,13 +98,13 @@
 class Config {
   public:
     static String plugin_name;
-    static bool ambilight;
+    static int ambilight;
     static int ambilight_leds;
     static int ambilight_startIDX;
     static color_t ambilight_color;
     static String Startup_Text;
     static bool useTypewriter;
-    static bool ambilight_type; /* SECONDS / ANIMATION / FIXED ...*/
+    static int ambilight_type; /* SECONDS / ANIMATION / FIXED ...*/
 
     static color_t color_bg;
     static color_t color_fg;
