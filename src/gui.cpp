@@ -28,20 +28,23 @@ String Gui::getAmbilightForm() {
   String content = "";
 
   content += "<div>\n";
-  content += "<label>Plugin: " +Config::plugin_name + "</label>\n";
+  content += "<label>Plugin: " + Config::plugin_name + "</label>\n";
   content += "<label>Ambilightfarbe</label>\n";
-  content += "<input name=\"ambifg\" value=\"#" + Color::rgbToHex(Config::ambilight_color) + "\" type=\"color\">\n";
+  content += "<input id=\"ambifg\" value=\"#" + Color::rgbToHex(Config::ambilight_color) + "\" type=\"color\">\n";
   content += "</div>\n";
   content += "<div>\n";
   content += "<label>Ambilight</label>\n";
-  content += "<select name=\"ambi_active\">\n";
-  content += Gui::htmlOption("Inaktiv", String(0), String(Config::ambilight));
-  content += Gui::htmlOption("Aktiv", String(1), String(Config::ambilight));
+  content += "<select id=\"ambi_active\">\n";
+  content += Gui::htmlOption("inaktiv", String(0), String(Config::ambilight));
+  content += Gui::htmlOption("Sekunden", String(1), String(Config::ambilight));
+  content += Gui::htmlOption("permanent", String(2), String(Config::ambilight));
+  
   content += "</select>\n";
   content += "</div>\n";
   return content;
 }
 
+/*
 String Gui::getTimeForm() {
   String content = "";
 
@@ -144,6 +147,7 @@ String Gui::getTimeForm() {
 
   return content;
 }
+*/
 
 String Gui::createStyleSheet() {
   String content = "";
@@ -210,7 +214,17 @@ String Gui::createNav() {
 String Gui::createScript() {
   String content = "";
 
-  content += "window.onload=function(){var e=function(e){return document.getElementById(e)},n=document.querySelector('nav'),t=n.querySelectorAll('li'),d=document.querySelectorAll('main section'),i=e('save'),a=e('reset_wifi'),o=e('reset_wifi_message'),c='color',l={fg:e('fg'),bg:e('bg'),power_supply:e('power_supply'),brightness:e('brightness'),tzAuto:e('tz_auto'),tz:e('tz'),ntp:e('ntp'),dndActive:e('dnd_active'),dndSH:e('dnd_s_h'),dndSM:e('dnd_s_m'),dndEH:e('dnd_e_h'),dndEM:e('dnd_e_m')};t.forEach(function(n){n.onclick=function(n){if('li'==n.currentTarget.tagName.toLowerCase()&&n.currentTarget.hasAttribute('name')){c=n.currentTarget.getAttribute('name');for(var a=0;a<t.length;a++)t[a].classList.remove('active');n.currentTarget.classList.add('active');for(a=0;a<d.length;a++)d[a].classList.remove('active');i.style.display='wifi'==c?'none':'inline-block',e(c).classList.add('active')}}}),i.onclick=function(e){var n={},t='/api/'+c;if('color'==c)n.fg=l.fg.value,n.bg=l.bg.value,n.power_supply=l.power_supply.value,n.brightness=l.brightness.value;else if('time'==c)n.tz_auto=l.tzAuto.value,n.tz=l.tz.value,n.ntp=l.ntp.value;else{if('dnd'!=c)return;n.dnd_active=l.dndActive.value,n.dnd_start_hour=l.dndSH.value,n.dnd_start_minute=l.dndSM.value,n.dnd_end_hour=l.dndEH.value,n.dnd_end_minute=l.dndEM.value}fetch(t,{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify(n)}).then(function(e){})},a.onclick=function(e){fetch('/api/wifi',{method:'DELETE',headers:{'Content-Type':'application/json'},body:''}).then(function(e){}),n.classList.add('disabled'),a.style.display='none',o.style.display='block'}};";
+  content += "window.onload=function(){var e=function(e){return document.getElementById(e)},n=document.querySelector('nav'),t=n.querySelectorAll('li'),d=document.querySelectorAll('main section'),i=e('save'),a=e('reset_wifi'),o=e('reset_wifi_message'),c='color',";
+  content += "l={fg:e('fg'),";
+  content += "bg:e('bg'),";
+  content += "ambifg:e('ambifg'),";
+  content += "ambi_active:e('ambi_active'),";
+  content += "power_supply:e('power_supply'),brightness:e('brightness'),tzAuto:e('tz_auto'),tz:e('tz'),ntp:e('ntp'),dndActive:e('dnd_active'),dndSH:e('dnd_s_h'),dndSM:e('dnd_s_m'),dndEH:e('dnd_e_h'),dndEM:e('dnd_e_m')};t.forEach(function(n){n.onclick=function(n){if('li'==n.currentTarget.tagName.toLowerCase()&&n.currentTarget.hasAttribute('name')){c=n.currentTarget.getAttribute('name');for(var a=0;a<t.length;a++)t[a].classList.remove('active');n.currentTarget.classList.add('active');for(a=0;a<d.length;a++)d[a].classList.remove('active');i.style.display='wifi'==c?'none':'inline-block',e(c).classList.add('active')}}}),i.onclick=function(e){var n={},t='/api/'+c;if('color'==c)";
+  content += "n.fg=l.fg.value,";
+  content += "n.bg=l.bg.value,";
+  content += "n.ambifg=l.ambifg.value,";
+  content += "n.ambi_active=l.ambi_active.value,";
+  content += "n.power_supply=l.power_supply.value,n.brightness=l.brightness.value;else if('time'==c)n.tz_auto=l.tzAuto.value,n.tz=l.tz.value,n.ntp=l.ntp.value;else{if('dnd'!=c)return;n.dnd_active=l.dndActive.value,n.dnd_start_hour=l.dndSH.value,n.dnd_start_minute=l.dndSM.value,n.dnd_end_hour=l.dndEH.value,n.dnd_end_minute=l.dndEM.value}fetch(t,{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify(n)}).then(function(e){})},a.onclick=function(e){fetch('/api/wifi',{method:'DELETE',headers:{'Content-Type':'application/json'},body:''}).then(function(e){}),n.classList.add('disabled'),a.style.display='none',o.style.display='block'}};";
 
   return content;
 }

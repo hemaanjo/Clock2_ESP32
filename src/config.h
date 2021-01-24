@@ -104,6 +104,7 @@ class Config {
     static color_t ambilight_color;
     static String Startup_Text;
     static bool useTypewriter;
+    static int Typewriterdelay;
     static int ambilight_type; /* SECONDS / ANIMATION / FIXED ...*/
 
     static color_t color_bg;

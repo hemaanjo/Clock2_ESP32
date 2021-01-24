@@ -62,5 +62,14 @@ void ota::setup() {
 }
 
 void ota::loop() {
+  if(WiFi.status() != WL_CONNECTED) {
+    WiFi.begin(WLANSID, WLANPWD);
+    while (WiFi.waitForConnectResult() != WL_CONNECTED) {
+        Serial.println("Connection Failed! Rebooting...");
+        delay(5000);
+        ESP.restart();
+    }
+  }
+  
 ArduinoOTA.handle();
 }

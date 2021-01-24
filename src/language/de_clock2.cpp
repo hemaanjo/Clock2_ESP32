@@ -6,8 +6,36 @@
 #include "../dnd.h"
 #include "../led.h"
 
+void Grid_de_clock2::showGrid(bool inLoop) {
+  if(inLoop) {
+      if(Config::useTypewriter) {
+        FastLED.show();
+        delay(Config::Typewriterdelay);
+      }
+  }
+  else {
+      /* code */
+      if(Config::useTypewriter==false){
+        FastLED.show();
+      }
+  }
+}
+
 void Grid_de_clock2::setSecond(int second) {
- //   
+ for(int i = Config::ambilight_startIDX; i<Config::ambilight_startIDX+Config::ambilight_leds; i+=2) {
+  int secIndex;
+  if(second < 30) {
+    secIndex = 30 - second;
+  } else {
+    secIndex = Config::ambilight_startIDX+Config::ambilight_leds - second; 
+  }  
+  if(i=secIndex) {
+    Led::ids[i].setRGB(Config::ambilight_color.r,Config::ambilight_color.g,Config::ambilight_color.b);
+  } else {
+    Led::ids[i].setRGB(0 ,0,0);
+  }
+ }
+ FastLED.show();
 }
 
 void Grid_de_clock2::setTime(int hour, int minute) {
@@ -43,12 +71,14 @@ void Grid_de_clock2::setTime(int hour, int minute) {
 
   for(int i = 0; i < 5; i++) {
 	Led::ids[Led::getLedId(Grid_de_clock2::time_it_is[i])].setRGB(Config::color_fg.r, Config::color_fg.g, Config::color_fg.b);
+  Grid_de_clock2::showGrid(true);
   }
 
   for(int m = 0; m < 12; m++) {
 	if(Grid_de_clock2::time_minutes[minute][m] >= 0) {
 	  Led::ids[Led::getLedId(Grid_de_clock2::time_minutes[minute][m])].setRGB(Config::color_fg.r, Config::color_fg.g, Config::color_fg.b);
-	}
+	  Grid_de_clock2::showGrid(true);
+  }
   }
 
   if(hour == 1 && minute == 0) {
@@ -58,7 +88,8 @@ void Grid_de_clock2::setTime(int hour, int minute) {
   for(int h = 0; h < hourLimit; h++) {
 	if(Grid_de_clock2::time_hours[hour][h] >= 0) {
 	  Led::ids[Led::getLedId(Grid_de_clock2::time_hours[hour][h])].setRGB(Config::color_fg.r, Config::color_fg.g, Config::color_fg.b);
-	}
+	  Grid_de_clock2::showGrid(true);
+  }
   }
 
   if(GRID_SINGLE_MINUTES == 1) {
@@ -73,7 +104,7 @@ void Grid_de_clock2::setTime(int hour, int minute) {
   }
 
   FastLED.setBrightness(Config::brightness * 255);
-  FastLED.show();
+  Grid_de_clock2::showGrid(false);
 }
 
 //String Grid_de_clock2::Layout = "clock2";

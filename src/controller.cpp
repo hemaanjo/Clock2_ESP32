@@ -26,6 +26,8 @@ void Controller::saveColor() {
 
   Config::color_fg = Color::hexToRgb(doc["fg"].as<String>());
   Config::color_bg = Color::hexToRgb(doc["bg"].as<String>());
+  Config::ambilight_color = Color::hexToRgb(doc["ambifg"].as<String>());
+  Config::ambilight = doc["ambi_active"].as<int>();
   Config::power_supply = doc["power_supply"].as<int>();
   Config::brightness =
     (doc["brightness"].as<double>() > Led::getMaxBrightnessPercnt()) ? Led::getMaxBrightnessPercnt() : doc["brightness"].as<double>();

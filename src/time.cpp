@@ -24,7 +24,8 @@ void Time::loop() {
     Time::second = s;
     //if((s%5)==0) {
     if(Config::ambilight == 1) {
-      Serial.print(".");//Serial.print(s);
+      //Serial.print(".");
+      Grid::setSecond(Time::second);
       }
     //  }
     }

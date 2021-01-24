@@ -9,6 +9,7 @@ class Grid_de_clock2 {
     
 	static void setSecond(int second);
 	static void setTime(int hour, int minute);
+	static void showGrid(bool inLoop);
 };
 
 typedef class Grid_de_clock2 Grid;
