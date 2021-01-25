@@ -58,7 +58,7 @@ void Config::save() {
   doc["ntp"] = Config::ntp;
   doc["plugin_name"] = Config::plugin_name;
   doc["ambi_active"] = Config::ambilight;
-  doc["ambilight_leds"] = Config::ambilight_leds;
+  //doc["ambilight_leds"] = Config::ambilight_leds;
   doc["ambilight_startIDX"] = Config::ambilight_startIDX;
   doc["ambilight_color_r"] = Config::ambilight_color.r;
   doc["ambilight_color_g"] = Config::ambilight_color.g;
@@ -102,7 +102,7 @@ void Config::load() {
   Config::ambilight_color.r = 35;
   Config::ambilight_color.g = 45;
   Config::ambilight_color.b = 0;
-  Config::ambilight_leds = 120;
+  Config::ambilight_leds = AMBILIGHT_LED;
   Config::ambilight_startIDX = 113;
   Config::Startup_Text = " c l o c k 2 ";
   Config::Typewriterdelay = TYPEWRITER_DELAY;
@@ -165,13 +165,23 @@ void Config::load() {
   Config::plugin_name = doc["plugin_name"].as<String>();
   Config::ambilight=doc["ambi_active"].as<int>();
   Config::ambilight_leds = doc["ambilight_leds"].as<int>();
+  if(Config::ambilight != 0) {
+    Config::ambilight_leds = AMBILIGHT_LED;
+  }
   Config::ambilight_startIDX=doc["ambilight_startIDX"].as<int>();
   Config::ambilight_color.r = doc["ambilight_color_r"].as<int>();
   Config::ambilight_color.g = doc["ambilight_color_g"].as<int>();
   Config::ambilight_color.b = doc["ambilight_color_b"].as<int>();
   Config::Startup_Text = doc["Startup_Text"].as<String>();
   Config::useTypewriter = doc["useTypeWriter"].as<bool>();
+  if(Config::useTypewriter != TYPEWRITER) {
+    Config::useTypewriter = TYPEWRITER;
+  }
   file.close();
+
+  Serial.print("Loaded config. ambilight_leds="); Serial.println(Config::ambilight_leds);
+  Serial.print("Loaded config. useTpyWriter="); Serial.println(Config::useTypewriter);
+
 }
 
 color_t Config::color_bg{};

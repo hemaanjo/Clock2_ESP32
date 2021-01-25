@@ -22,6 +22,7 @@ void Grid_de_clock2::showGrid(bool inLoop) {
 }
 
 void Grid_de_clock2::setSecond(int second) {
+  return;
  for(int i = Config::ambilight_startIDX; i<Config::ambilight_startIDX+Config::ambilight_leds; i+=2) {
   int secIndex;
   if(second < 30) {
