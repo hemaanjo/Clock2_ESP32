@@ -9,6 +9,7 @@
 void Grid_de_clock2::showGrid(bool inLoop) {
   if(inLoop) {
       if(Config::useTypewriter) {
+        FastLED.setBrightness(Config::brightness * 255);
         FastLED.show();
         delay(Config::Typewriterdelay);
       }
@@ -16,6 +17,7 @@ void Grid_de_clock2::showGrid(bool inLoop) {
   else {
       /* code */
       if(Config::useTypewriter==false){
+        FastLED.setBrightness(Config::brightness * 255);
         FastLED.show();
       }
   }
@@ -97,14 +99,16 @@ void Grid_de_clock2::setTime(int hour, int minute) {
 	// single minutes
 	for(int s = (NUM_LEDS - 4); s < (NUM_LEDS - 4 + singleMinute); s++) {
 	  Led::ids[s].setRGB(Config::color_fg.r, Config::color_fg.g, Config::color_fg.b);
+    Grid_de_clock2::showGrid(true);
 	}
   } else {
 	for(int s = 0; s < singleMinute; s++) {
 	  Led::ids[s].setRGB(Config::color_fg.r, Config::color_fg.g, Config::color_fg.b);
+    Grid_de_clock2::showGrid(true);
 	}
   }
 
-  FastLED.setBrightness(Config::brightness * 255);
+//  FastLED.setBrightness(Config::brightness * 255);
   Grid_de_clock2::showGrid(false);
 }
 
