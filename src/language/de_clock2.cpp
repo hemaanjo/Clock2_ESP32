@@ -23,8 +23,28 @@ void Grid_de_clock2::showGrid(bool inLoop) {
   }
 }
 
+void Grid_de_clock2::setSingleMinute(int minute){
+  for(int i = 0; i < Led::numled_Min; i++) {
+    if (minute == i){
+      Led::ids[i].setRGB(Config::color_bg.r * 0.2, Config::color_bg.g * 0.2, Config::color_bg.b * 0.2);
+    }
+    else {
+      Led::ids[i].setRGB(Config::color_bg.r * 0.2, Config::color_bg.g * 0.2, Config::color_bg.b * 0.2);
+    }
+    Grid_de_clock2::showGrid(true);
+  }
+}
+
+
 void Grid_de_clock2::setSecond(int second) {
-  return;
+  int secIndex;
+  if(second < 30) {
+    secIndex = 30 - second;
+  } else {
+    secIndex = Config::ambilight_startIDX+Config::ambilight_leds - second; 
+  }  
+
+ return;
  for(int i = Config::ambilight_startIDX; i<Config::ambilight_startIDX+Config::ambilight_leds; i+=2) {
   int secIndex;
   if(second < 30) {
@@ -34,26 +54,27 @@ void Grid_de_clock2::setSecond(int second) {
   }  
   if(i=secIndex) {
     Led::ids[i].setRGB(Config::ambilight_color.r,Config::ambilight_color.g,Config::ambilight_color.b);
+    Led::ids[i+1].setRGB(Config::ambilight_color.r,Config::ambilight_color.g,Config::ambilight_color.b);
   } else {
     Led::ids[i].setRGB(0 ,0,0);
+    Led::ids[i+1].setRGB(0 ,0,0);
   }
  }
+ FastLED.setBrightness(Config::brightness * 255);
  FastLED.show();
 }
 
 void Grid_de_clock2::setTime(int hour, int minute) {
   if(hour == -1 || minute == -1) {
-	return;
+    return;
   }
 
   if(DND::active(hour, minute)) {
-	for(int i = 0; i < NUM_LEDS; i++) {
-	  Led::ids[i].setRGB(0, 0, 0);
-	}
-
-	FastLED.show();
-
-	return;
+    for(int i = 0; i < NUM_LEDS; i++) {
+      Led::ids[i].setRGB(0, 0, 0);
+      }
+    FastLED.show();
+    return;
   }
 
   int singleMinute = minute % 5;
@@ -68,13 +89,21 @@ void Grid_de_clock2::setTime(int hour, int minute) {
   minute = minute / 5;
   hour = hour % 12;
 
-  for(int i = 0; i < NUM_LEDS; i++) {
-	Led::ids[i].setRGB(Config::color_bg.r * 0.2, Config::color_bg.g * 0.2, Config::color_bg.b * 0.2);
+  if (singleMinute != 0) {
+    // nur Minuten löschen
+    Grid_de_clock2::setSingleMinute(singleMinute);
+    Grid_de_clock2::showGrid(false);
+    return;
+  } else {
+    for(int i = 0; i < Led::numled_Min+Led::numled_Grid; i++) {
+      Led::ids[i].setRGB(Config::color_bg.r * 0.2, Config::color_bg.g * 0.2, Config::color_bg.b * 0.2);
+    }
   }
+  
 
   for(int i = 0; i < 5; i++) {
-	Led::ids[Led::getLedId(Grid_de_clock2::time_it_is[i])].setRGB(Config::color_fg.r, Config::color_fg.g, Config::color_fg.b);
-  Grid_de_clock2::showGrid(true);
+    Led::ids[Led::getLedId(Grid_de_clock2::time_it_is[i])].setRGB(Config::color_fg.r, Config::color_fg.g, Config::color_fg.b);
+    Grid_de_clock2::showGrid(true);
   }
 
   for(int m = 0; m < 12; m++) {

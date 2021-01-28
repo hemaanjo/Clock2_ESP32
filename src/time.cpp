@@ -23,8 +23,8 @@ void Time::loop() {
   if(s != Time::second) {
     Time::second = s;
     //if((s%5)==0) {
-    if(Config::ambilight == 1) {
-      Serial.print(".");
+    if((Config::ambilight == 1) && (s % 60 !=0)) {
+      Serial.println(s);
       Grid::setSecond(Time::second);
       }
     //  }

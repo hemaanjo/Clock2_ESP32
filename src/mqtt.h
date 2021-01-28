@@ -1,16 +1,29 @@
+#ifndef WORDCLOCK_MQTT_H
+#define WORDCLOCK_MQTT_H
+
+
+#include <WiFi.h>
+#include <WiFiClient.h>
 #include <PubSubClient.h>
 
-#define MQTT_server "m21.cloudmqtt.com"
-#define MQTT_port 12247
-#define MQTT_User "iasfjkqc"
-#define MQTT_Pass "qsXY5N74m-VN"
-#define MQTT_Name "Schlafzimmer"
 
-class mqtt {
-    const char* mqtt_server =  MQTT_server;
-
-/* create an instance of PubSubClient client */
-WiFiClient espClient;
-PubSubClient client(espClient);
 // MQTT Zugangsdaten
-}
+#define MQTT_server "openhab2.dama40.net"
+#define MQTT_port 1833
+#define MQTT_User "openhab2"
+#define MQTT_Pass "Ehl95W23"
+#define MQTT_Name "Clock2"
+
+class WC_Mqtt {
+  public:
+    static String server;
+    static int port;
+    static String user;
+    static String password;
+
+    static void setup();
+    static void loop();
+    static bool reConnect();
+};
+
+#endif

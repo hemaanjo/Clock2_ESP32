@@ -122,6 +122,8 @@ void Config::load() {
   StaticJsonDocument<1024> doc;
   deserializeJson(doc, file);
 
+  //Serial.println(doc);
+
   Config::color_bg.r = doc["color_bg_r"].as<int>();
   Config::color_bg.g = doc["color_bg_g"].as<int>();
   Config::color_bg.b = doc["color_bg_b"].as<int>();
@@ -176,6 +178,11 @@ void Config::load() {
   Config::useTypewriter = doc["useTypeWriter"].as<bool>();
   if(Config::useTypewriter != TYPEWRITER) {
     Config::useTypewriter = TYPEWRITER;
+  }
+  if(AMBILIGHT_LED  !=0 ) {
+    if(Config::ambilight_leds != AMBILIGHT_LED) {
+      Config::ambilight_leds = AMBILIGHT_LED;
+    }
   }
   file.close();
 

@@ -9,12 +9,14 @@
 #include "src/httpServer.h"
 #include "src/gui.h"
 #include "src/controller.h"
+#include "src/mqtt.h"
 
 void setup() {
   // put your setup code here, to run once:
   Serial.begin(115200);
   Serial.println();
   ota::setup();
+  WC_Mqtt::setup();
   Config::checkFileSystem();
   Config::load();
   HttpServer::setup();

@@ -3,15 +3,16 @@
 #include "led.h"
 #include "config.h"
 
-int Led::numled_Ambi = Config::ambilight_leds;
-int Led::numled_Grid = GRID_COLS * GRID_ROWS;
-int Led::numled_Min = 4;
+int Led::numled_Ambi{};
+int Led::numled_Grid{};
+int Led::numled_Min{};
 
 CRGB Led::ids[NUM_LEDS];
 
-void Led::setup() 
-{
-  // Led::numled_Grid = Config::ambilight_leds;
+void Led::setup() {
+  Led::numled_Ambi = Config::ambilight_leds;
+  Led::numled_Grid = GRID_COLS * GRID_ROWS;
+  Led::numled_Min = 4;
   
   FastLED.addLeds<NEOPIXEL, PIN4DATA>(Led::ids, Led::numled_Grid+Led::numled_Min+Led::numled_Ambi);
   FastLED.setBrightness(50);
@@ -42,7 +43,6 @@ int Led::getLedId(int id) {
   if(GRID_SINGLE_MINUTES == 0) {
     led += 4;
   }
-
   return led;
 }
 
@@ -61,7 +61,7 @@ int Led::getMaxNumberIlluminatedLeds() {
   return max_time_it_is + max_time_minutes + max_time_hours;
 }
 
-#define LED_DELAY 20
+#define LED_DELAY 10
 #define LED_WAIT 1000
 
 void Led::firstRun(){
@@ -84,15 +84,15 @@ void Led::firstRun(){
     }
   }
 
-    for(int i = 0; i < Led::numled_Grid+Led::numled_Min+Led::numled_Ambi; i++) {
-      int led = i;
-      Led::ids[led] = CRGB::White; 
-      
-    }
-    FastLED.show();
-    delay(LED_WAIT);
+    //for(int i = 0; i < Led::numled_Grid+Led::numled_Min+Led::numled_Ambi; i++) {
+    //  int led = i;
+    //  Led::ids[led] = CRGB::White; 
+    //  
+    //}
+    //FastLED.show();
+    //delay(LED_WAIT);
 
-    for(int i = 0; i < NUM_LEDS; i++) {
+    for(int i = NUM_LEDS; i >= 0; i--) {
       int led = i;
       Led::ids[led] = CRGB::Black; 
       

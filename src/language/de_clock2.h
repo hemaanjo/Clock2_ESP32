@@ -8,6 +8,7 @@ class Grid_de_clock2 {
 	static int time_hours[12][6];
     
 	static void setSecond(int second);
+	static void setSingleMinute(int minute);
 	static void setTime(int hour, int minute);
 	static void showGrid(bool inLoop);
 };
