@@ -59,7 +59,7 @@ void Config::save() {
   doc["plugin_name"] = Config::plugin_name;
   doc["ambi_active"] = Config::ambilight;
   //doc["ambilight_leds"] = Config::ambilight_leds;
-  doc["ambilight_startIDX"] = Config::ambilight_startIDX;
+  //doc["ambilight_startIDX"] = Config::ambilight_startIDX;
   doc["ambilight_color_r"] = Config::ambilight_color.r;
   doc["ambilight_color_g"] = Config::ambilight_color.g;
   doc["ambilight_color_b"] = Config::ambilight_color.b;
@@ -103,7 +103,7 @@ void Config::load() {
   Config::ambilight_color.g = 45;
   Config::ambilight_color.b = 0;
   Config::ambilight_leds = AMBILIGHT_LED;
-  Config::ambilight_startIDX = 113;
+  Config::ambilight_startIDX = AMBILIGHT_STARTIDX;
   Config::Startup_Text = " c l o c k 2 ";
   Config::Typewriterdelay = TYPEWRITER_DELAY;
 
@@ -171,7 +171,9 @@ void Config::load() {
     Config::ambilight_leds = AMBILIGHT_LED;
   }
   Config::ambilight_startIDX=doc["ambilight_startIDX"].as<int>();
-  Config::ambilight_color.r = doc["ambilight_color_r"].as<int>();
+  if(Config::ambilight_startIDX == 0) {
+    Config::ambilight_startIDX = AMBILIGHT_STARTIDX;
+  }Config::ambilight_color.r = doc["ambilight_color_r"].as<int>();
   Config::ambilight_color.g = doc["ambilight_color_g"].as<int>();
   Config::ambilight_color.b = doc["ambilight_color_b"].as<int>();
   Config::Startup_Text = doc["Startup_Text"].as<String>();

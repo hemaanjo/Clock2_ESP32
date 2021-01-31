@@ -24,6 +24,7 @@ void Grid_de_clock2::showGrid(bool inLoop) {
 }
 
 void Grid_de_clock2::setSingleMinute(int minute){
+  Serial.printf("SingleMinute=%d\n",minute  );
   for(int i = 0; i < Led::numled_Min; i++) {
     if (minute == i){
       Led::ids[i].setRGB(Config::color_bg.r * 0.2, Config::color_bg.g * 0.2, Config::color_bg.b * 0.2);
@@ -35,34 +36,51 @@ void Grid_de_clock2::setSingleMinute(int minute){
   }
 }
 
-
 void Grid_de_clock2::setSecond(int second) {
   int secIndex;
+  
+//  Serial.printf("setSecond Ambilight=%d\n",Config::ambilight);
+//  Serial.printf("setSecond Config::ambilight_startIDX=%d\n",Config::ambilight_startIDX);
+//  Serial.printf("setSecond Config::ambilight_leds=%d\n",Config::Config::ambilight_leds);
+//return;
   if(second < 30) {
     secIndex = 30 - second;
   } else {
     secIndex = Config::ambilight_startIDX+Config::ambilight_leds - second; 
   }  
 
- return;
- for(int i = Config::ambilight_startIDX; i<Config::ambilight_startIDX+Config::ambilight_leds; i+=2) {
-  int secIndex;
-  if(second < 30) {
-    secIndex = 30 - second;
-  } else {
-    secIndex = Config::ambilight_startIDX+Config::ambilight_leds - second; 
-  }  
-  if(i=secIndex) {
-    Led::ids[i].setRGB(Config::ambilight_color.r,Config::ambilight_color.g,Config::ambilight_color.b);
-    Led::ids[i+1].setRGB(Config::ambilight_color.r,Config::ambilight_color.g,Config::ambilight_color.b);
-  } else {
-    Led::ids[i].setRGB(0 ,0,0);
-    Led::ids[i+1].setRGB(0 ,0,0);
+  switch(Config::ambilight) {
+    case 0: break;
+    case 1: // Seconds :-)
+      if(second < 30) {
+        secIndex = 30 - second;
+      } else {
+        secIndex = Config::ambilight_startIDX+Config::ambilight_leds - second; 
+      }  
+      //return;
+      for(int i = Config::ambilight_startIDX; i<Config::ambilight_startIDX+Config::ambilight_leds; i+=2) {
+        if(i == secIndex) {
+          Led::ids[i].setRGB(Config::ambilight_color.r,Config::ambilight_color.g,Config::ambilight_color.b);
+          Led::ids[i+1].setRGB(Config::ambilight_color.r,Config::ambilight_color.g,Config::ambilight_color.b);
+        } else {
+          Led::ids[i].setRGB(0 ,0,0);
+          Led::ids[i+1].setRGB(0 ,0,0);
+        }
+      }
+      break;
+    case 2: 
+      for(int i = Config::ambilight_startIDX; i<Config::ambilight_startIDX+Config::ambilight_leds; i++) {
+        Led::ids[i].setRGB(Config::ambilight_color.r,Config::ambilight_color.g,Config::ambilight_color.b);
+        };
+      break;
   }
- }
- FastLED.setBrightness(Config::brightness * 255);
- FastLED.show();
+  if(Config::ambilight !=0 ){
+     FastLED.setBrightness(Config::brightness * 255);
+     FastLED.show();
+ //    Serial.printf("setSecond %d",second);
+  }
 }
+
 
 void Grid_de_clock2::setTime(int hour, int minute) {
   if(hour == -1 || minute == -1) {
@@ -91,13 +109,16 @@ void Grid_de_clock2::setTime(int hour, int minute) {
 
   if (singleMinute != 0) {
     // nur Minuten löschen
+    for(int i = 0; i < Led::numled_Min+Led::numled_Grid; i++) {
+      Led::ids[i].setRGB(0, 0, 0);
+    }
     Grid_de_clock2::setSingleMinute(singleMinute);
     Grid_de_clock2::showGrid(false);
     return;
   } else {
-    for(int i = 0; i < Led::numled_Min+Led::numled_Grid; i++) {
-      Led::ids[i].setRGB(Config::color_bg.r * 0.2, Config::color_bg.g * 0.2, Config::color_bg.b * 0.2);
-    }
+//    for(int i = 0; i < Led::numled_Min+Led::numled_Grid; i++) {
+//      Led::ids[i].setRGB(Config::color_bg.r * 0.2, Config::color_bg.g * 0.2, Config::color_bg.b * 0.2);
+//    }
   }
   
 
@@ -107,10 +128,10 @@ void Grid_de_clock2::setTime(int hour, int minute) {
   }
 
   for(int m = 0; m < 12; m++) {
-	if(Grid_de_clock2::time_minutes[minute][m] >= 0) {
-	  Led::ids[Led::getLedId(Grid_de_clock2::time_minutes[minute][m])].setRGB(Config::color_fg.r, Config::color_fg.g, Config::color_fg.b);
-	  Grid_de_clock2::showGrid(true);
-  }
+	  if(Grid_de_clock2::time_minutes[minute][m] >= 0) {
+	    Led::ids[Led::getLedId(Grid_de_clock2::time_minutes[minute][m])].setRGB(Config::color_fg.r, Config::color_fg.g, Config::color_fg.b);
+	    Grid_de_clock2::showGrid(true);
+    }
   }
 
   if(hour == 1 && minute == 0) {

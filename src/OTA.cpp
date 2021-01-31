@@ -15,6 +15,9 @@ void ota::setup() {
         ESP.restart();
     }
 
+  Serial.print("WiFi connected");
+  Serial.print(" IP address: ");
+  Serial.println(WiFi.localIP());
   // Port defaults to 3232
   // ArduinoOTA.setPort(3232);
 

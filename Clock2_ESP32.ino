@@ -31,4 +31,7 @@ void loop() {
   ota::loop();
   Time::loop();
   HttpServer::loop();
+  if ((Time::second % 5) == 0) {
+    WC_Mqtt::loop();
+  }
 }

@@ -24,6 +24,7 @@ class WC_Mqtt {
     static void setup();
     static void loop();
     static bool reConnect();
+    static void callback(char* topic, byte* payload, unsigned int length);
 };
 
 #endif

@@ -23,7 +23,7 @@ void Time::loop() {
   if(s != Time::second) {
     Time::second = s;
     //if((s%5)==0) {
-    if((Config::ambilight == 1) && (s % 60 !=0)) {
+    if((Config::ambilight > 0) && (s % 60 !=0)) {
       Serial.println(s);
       Grid::setSecond(Time::second);
       }
@@ -42,12 +42,15 @@ void Time::loop() {
       Grid::setTime(Time::hour, Time::minute);
      //Serial.print(h);Serial.print(":");Serial.println(m);
       Serial.println(Time::ntpClient.getFormattedTime());
+      
+      Grid::setTime(Time::hour, Time::minute);
+
     } else {
       Time::minute = m;
+      Grid::setSingleMinute(Time::minute);
       Serial.println((m%5));
     }
     
-    Grid::setTime(Time::hour, Time::minute);
 
     //Serial.println("Config::automatic_timezone" + Config::automatic_timezone);
     if (Config::automatic_timezone) {
