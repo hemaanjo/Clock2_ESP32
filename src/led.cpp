@@ -16,7 +16,7 @@ void Led::setup() {
   
   FastLED.addLeds<NEOPIXEL, PIN4DATA>(Led::ids, Led::numled_Grid+Led::numled_Min+Led::numled_Ambi);
   FastLED.setBrightness(50);
-
+  
   for(int i = 0; i < Led::numled_Grid+Led::numled_Min+Led::numled_Ambi; i++) {
     Led::ids[i].setRGB(0, 0, 0);
   }
@@ -65,7 +65,6 @@ int Led::getMaxNumberIlluminatedLeds() {
 #define LED_WAIT 1000
 
 void Led::firstRun(){
-
   for(int col = 0; col < 3; col++) {
     for(int i = 0; i < Led::numled_Grid+Led::numled_Min+Led::numled_Ambi; i++) {
       int led = i;
@@ -77,27 +76,13 @@ void Led::firstRun(){
        
       FastLED.show();
       delay(LED_DELAY);
-      
-      /*leds[led] = CRGB::Black;
-      FastLED.show();
-      delay(LED_DELAY);*/
     }
   }
-
-    //for(int i = 0; i < Led::numled_Grid+Led::numled_Min+Led::numled_Ambi; i++) {
-    //  int led = i;
-    //  Led::ids[led] = CRGB::White; 
-    //  
-    //}
-    //FastLED.show();
-    //delay(LED_WAIT);
-
-    for(int i = NUM_LEDS; i >= 0; i--) {
+  for(int i = NUM_LEDS; i >= 0; i--) {
       int led = i;
       Led::ids[led] = CRGB::Black; 
       
     }
-
-    FastLED.show();
-
+  FastLED.show();
+  
 }

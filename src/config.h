@@ -31,7 +31,7 @@
   #define GRID_COLS 11
 #endif
 
-/* Postition of first LED
+/* Position of first LED
  *
  * Options
  * -------

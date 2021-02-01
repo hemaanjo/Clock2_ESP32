@@ -66,8 +66,6 @@ void Config::save() {
   doc["Startup_Text"] = Config::Startup_Text;
   doc["useTypeWriter"] = Config::useTypewriter;
 
-  
-
   serializeJson(doc, file);
 
   file.close();

@@ -26,8 +26,8 @@ void Grid_de_clock2::showGrid(bool inLoop) {
 void Grid_de_clock2::setSingleMinute(int minute){
   Serial.printf("SingleMinute=%d\n",minute  );
   for(int i = 0; i < Led::numled_Min; i++) {
-    if (minute == i){
-      Led::ids[i].setRGB(Config::color_bg.r * 0.2, Config::color_bg.g * 0.2, Config::color_bg.b * 0.2);
+    if (minute == i+1){
+      Led::ids[i].setRGB(Config::color_fg.r, Config::color_fg.g, Config::color_fg.b);
     }
     else {
       Led::ids[i].setRGB(Config::color_bg.r * 0.2, Config::color_bg.g * 0.2, Config::color_bg.b * 0.2);
@@ -52,19 +52,19 @@ void Grid_de_clock2::setSecond(int second) {
   switch(Config::ambilight) {
     case 0: break;
     case 1: // Seconds :-)
-      if(second < 30) {
-        secIndex = 30 - second;
+      int secidx;
+      if(second <= 30) {
+        secidx = Config::ambilight_startIDX + 60 + (second-1)*2;
       } else {
-        secIndex = Config::ambilight_startIDX+Config::ambilight_leds - second; 
-      }  
-      //return;
+        secidx = Config::ambilight_startIDX + (second-1-30)*2;
+      } 
       for(int i = Config::ambilight_startIDX; i<Config::ambilight_startIDX+Config::ambilight_leds; i+=2) {
         if(i == secIndex) {
           Led::ids[i].setRGB(Config::ambilight_color.r,Config::ambilight_color.g,Config::ambilight_color.b);
           Led::ids[i+1].setRGB(Config::ambilight_color.r,Config::ambilight_color.g,Config::ambilight_color.b);
         } else {
-          Led::ids[i].setRGB(0 ,0,0);
-          Led::ids[i+1].setRGB(0 ,0,0);
+          Led::ids[i].setRGB(0,0,0);
+          Led::ids[i+1].setRGB(0,0,0);
         }
       }
       break;
@@ -116,12 +116,13 @@ void Grid_de_clock2::setTime(int hour, int minute) {
     Grid_de_clock2::showGrid(false);
     return;
   } else {
-//    for(int i = 0; i < Led::numled_Min+Led::numled_Grid; i++) {
-//      Led::ids[i].setRGB(Config::color_bg.r * 0.2, Config::color_bg.g * 0.2, Config::color_bg.b * 0.2);
-//    }
+    for(int i = 0; i < Led::numled_Min+Led::numled_Grid; i++) {
+      Led::ids[i].setRGB(Config::color_bg.r * 0.2, Config::color_bg.g * 0.2, Config::color_bg.b * 0.2);
+    }
+    Grid_de_clock2::showGrid(false);
   }
   
-
+// Es ist
   for(int i = 0; i < 5; i++) {
     Led::ids[Led::getLedId(Grid_de_clock2::time_it_is[i])].setRGB(Config::color_fg.r, Config::color_fg.g, Config::color_fg.b);
     Grid_de_clock2::showGrid(true);
