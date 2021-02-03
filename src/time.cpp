@@ -36,18 +36,18 @@ void Time::loop() {
     if(m == 0 && h == Time::hour) {
       h = (h + 1) % 24;
     }
-    /*if((m % 5)==0) {*/
+    if((m % 5) == 0) {
       Time::hour = h;
       Time::minute = m;
       Grid::setTime(Time::hour, Time::minute);
      //Serial.print(h);Serial.print(":");Serial.println(m);
       Serial.println(Time::ntpClient.getFormattedTime());
       
-    /*} else {
+    } else {
       Time::minute = m;
       Grid::setSingleMinute(Time::minute);
       Serial.println((m%5));
-    }*/
+    }
     
 
     //Serial.println("Config::automatic_timezone" + Config::automatic_timezone);

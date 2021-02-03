@@ -26,10 +26,8 @@ void Grid_de_clock2::showGrid(bool inLoop) {
 void Grid_de_clock2::setSingleMinute(int minute){
   Serial.printf("SingleMinute=%d\n",minute  );
   Led::clearSection(0);
-  for(int i = 0; i < Led::numled_Min; i++) {
-    if (minute <= i+1){
-      Led::ids[Led::idxled_Min+i].setRGB(Config::color_fg.r, Config::color_fg.g, Config::color_fg.b);
-    }
+  for(int i = 0; i < minute; i++) {
+    Led::ids[Led::idxled_Min+i].setRGB(Config::color_fg.r, Config::color_fg.g, Config::color_fg.b);
   }
   FastLED.setBrightness(Config::brightness * 255);
   FastLED.show();
@@ -100,14 +98,14 @@ void Grid_de_clock2::setTime(int hour, int minute) {
   minute = minute / 5;
   hour = hour % 12;
 
-  Led::clearSection(0);
+  /*Led::clearSection(0);
   if (singleMinute != 0) {
     // nur Minuten löschen
     Grid_de_clock2::setSingleMinute(singleMinute);
     Grid_de_clock2::showGrid(false);
     return;
   }
-
+*/
   Led::clearSection(1);
 // Es ist
   for(int i = 0; i < 5; i++) {
