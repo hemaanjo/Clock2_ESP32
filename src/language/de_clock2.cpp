@@ -25,12 +25,10 @@ void Grid_de_clock2::showGrid(bool inLoop) {
 
 void Grid_de_clock2::setSingleMinute(int minute){
   Serial.printf("SingleMinute=%d\n",minute  );
+  Led::clearSection(0);
   for(int i = Led::idxled_Min; i < Led::numled_Min; i++) {
-    if (minute == Led::idxled_Min+i+1){
+    if (minute <= Led::idxled_Min+i+1){
       Led::ids[i].setRGB(Config::color_fg.r, Config::color_fg.g, Config::color_fg.b);
-    }
-    else {
-      Led::ids[i].setRGB(Config::color_bg.r * 0.2, Config::color_bg.g * 0.2, Config::color_bg.b * 0.2);
     }
   }
   FastLED.setBrightness(Config::brightness * 255);
@@ -38,7 +36,6 @@ void Grid_de_clock2::setSingleMinute(int minute){
 }
 
 void Grid_de_clock2::setSecond(int second) {
-  int secIndex;
   
 //  Serial.printf("setSecond Ambilight=%d\n",Config::ambilight);
 //  Serial.printf("setSecond Config::ambilight_startIDX=%d\n",Config::ambilight_startIDX);
@@ -50,11 +47,11 @@ void Grid_de_clock2::setSecond(int second) {
     case 1: // Seconds :-)
       int secidx;
       if(second <= 30) {
-        secidx = Config::ambilight_startIDX + 60 + (second-1)*2;
+        secidx = Led::idxled_Ambi + 60 - (second-1)*2;
       } else {
-        secidx = Config::ambilight_startIDX + (second-1-30)*2;
+        secidx = Led::idxled_Ambi + Led::numled_Ambi - (second-1)*2;
       } 
-      for(int i = Config::ambilight_startIDX; i<Config::ambilight_startIDX+Config::ambilight_leds; i+=2) {
+      for(int i = Led::idxled_Ambi; i<Led::idxled_Ambi+Led::numled_Ambi; i+=2) {
         if(i == secidx) {
           Led::ids[i].setRGB(Config::ambilight_color.r,Config::ambilight_color.g,Config::ambilight_color.b);
           Led::ids[i+1].setRGB(Config::ambilight_color.r,Config::ambilight_color.g,Config::ambilight_color.b);
@@ -103,14 +100,14 @@ void Grid_de_clock2::setTime(int hour, int minute) {
   minute = minute / 5;
   hour = hour % 12;
 
-  Led::clearSection(0);
+/*  Led::clearSection(0);
   if (singleMinute != 0) {
     // nur Minuten löschen
     Grid_de_clock2::setSingleMinute(singleMinute);
     Grid_de_clock2::showGrid(false);
     return;
   }
-
+*/
   Led::clearSection(1);
 // Es ist
   for(int i = 0; i < 5; i++) {

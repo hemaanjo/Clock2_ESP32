@@ -6,6 +6,9 @@
 int Led::numled_Ambi{};
 int Led::numled_Grid{};
 int Led::numled_Min{};
+int Led::idxled_Ambi{};
+int Led::idxled_Grid{};
+int Led::idxled_Min{};
 
 CRGB Led::ids[NUM_LEDS];
 
