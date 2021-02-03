@@ -103,7 +103,7 @@ void Grid_de_clock2::setTime(int hour, int minute) {
   minute = minute / 5;
   hour = hour % 12;
 
-  Led::clearSection(LED_SECTION::Minutes);
+  Led::clearSection(0);
   if (singleMinute != 0) {
     // nur Minuten löschen
     Grid_de_clock2::setSingleMinute(singleMinute);
@@ -111,7 +111,7 @@ void Grid_de_clock2::setTime(int hour, int minute) {
     return;
   }
 
-  Led::clearSection(LED_SECTION::Grid);
+  Led::clearSection(1);
 // Es ist
   for(int i = 0; i < 5; i++) {
     Led::ids[Led::getLedId(Grid_de_clock2::time_it_is[i])].setRGB(Config::color_fg.r, Config::color_fg.g, Config::color_fg.b);

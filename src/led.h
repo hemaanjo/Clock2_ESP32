@@ -6,13 +6,6 @@
 
 #define NUM_LEDS ((GRID_ROWS * GRID_COLS) + 4 + 120)
 
-class LED_SECTION {
-  public:
-    const int Minutes = 0;
-    const int Grid = 1;
-    const int Ambilight = 2;
-};
-
 class Led {
   public:
     static CRGB ids[];
@@ -30,7 +23,7 @@ class Led {
     static int getMaxNumberIlluminatedLeds();
 
     static void showAmbilight();
-    static void clearSection(LED_SECTION);
+    static void clearSection(int secID);
 
     static void firstRun();
 };

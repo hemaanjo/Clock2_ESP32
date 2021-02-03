@@ -34,7 +34,8 @@ void Controller::saveColor() {
 
   Config::save();
   Grid::setTime(Time::hour, Time::minute);
-  
+  Led::showAmbilight();
+
   HttpServer::web.send(200, "text/html", "");
 }
 
@@ -57,6 +58,7 @@ void Controller::saveTime() {
 
   Config::save();
   Grid::setTime(Time::hour, Time::minute);
+  Led::showAmbilight();
 
   HttpServer::web.send(200, "text/html", "");
 }
@@ -76,7 +78,8 @@ void Controller::saveDnd() {
 
   Config::save();
   Grid::setTime(Time::hour, Time::minute);
-
+  Led::showAmbilight();
+  
   HttpServer::web.send(200, "text/html", "");
 }
 
