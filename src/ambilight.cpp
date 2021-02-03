@@ -1,8 +1,8 @@
-#include "ambilight.h"
-
-void Ambilight::display(){
-
-}
-
-Ambilight::Mode{};
-Ambilight::refresh{};
+//#include "ambilight.h"
+//
+//void Ambilight::display(){
+//
+//}
+//
+//Ambilight::Mode{};
+//Ambilight::refresh{};

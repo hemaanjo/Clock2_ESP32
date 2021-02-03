@@ -24,6 +24,7 @@ void setup() {
   Led::firstRun();
   Time::setup();
   Grid::setTime(Time::hour, Time::minute);
+  Led::showAmbilight();
 }
 
 void loop() {

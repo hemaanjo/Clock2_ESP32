@@ -25,15 +25,16 @@ void Grid_de_clock2::showGrid(bool inLoop) {
 
 void Grid_de_clock2::setSingleMinute(int minute){
   Serial.printf("SingleMinute=%d\n",minute  );
-  for(int i = 0; i < Led::numled_Min; i++) {
-    if (minute == i+1){
+  for(int i = Led::idxled_Min; i < Led::numled_Min; i++) {
+    if (minute == Led::idxled_Min+i+1){
       Led::ids[i].setRGB(Config::color_fg.r, Config::color_fg.g, Config::color_fg.b);
     }
     else {
       Led::ids[i].setRGB(Config::color_bg.r * 0.2, Config::color_bg.g * 0.2, Config::color_bg.b * 0.2);
     }
-    Grid_de_clock2::showGrid(true);
   }
+  FastLED.setBrightness(Config::brightness * 255);
+  FastLED.show();
 }
 
 void Grid_de_clock2::setSecond(int second) {
@@ -43,11 +44,6 @@ void Grid_de_clock2::setSecond(int second) {
 //  Serial.printf("setSecond Config::ambilight_startIDX=%d\n",Config::ambilight_startIDX);
 //  Serial.printf("setSecond Config::ambilight_leds=%d\n",Config::Config::ambilight_leds);
 //return;
-  if(second < 30) {
-    secIndex = 30 - second;
-  } else {
-    secIndex = Config::ambilight_startIDX+Config::ambilight_leds - second; 
-  }  
 
   switch(Config::ambilight) {
     case 0: break;
@@ -59,7 +55,7 @@ void Grid_de_clock2::setSecond(int second) {
         secidx = Config::ambilight_startIDX + (second-1-30)*2;
       } 
       for(int i = Config::ambilight_startIDX; i<Config::ambilight_startIDX+Config::ambilight_leds; i+=2) {
-        if(i == secIndex) {
+        if(i == secidx) {
           Led::ids[i].setRGB(Config::ambilight_color.r,Config::ambilight_color.g,Config::ambilight_color.b);
           Led::ids[i+1].setRGB(Config::ambilight_color.r,Config::ambilight_color.g,Config::ambilight_color.b);
         } else {
@@ -69,12 +65,12 @@ void Grid_de_clock2::setSecond(int second) {
       }
       break;
     case 2: 
-      for(int i = Config::ambilight_startIDX; i<Config::ambilight_startIDX+Config::ambilight_leds; i++) {
-        Led::ids[i].setRGB(Config::ambilight_color.r,Config::ambilight_color.g,Config::ambilight_color.b);
-        };
+      //for(int i = Config::ambilight_startIDX; i<Config::ambilight_startIDX+Config::ambilight_leds; i++) {
+      //  Led::ids[i].setRGB(Config::ambilight_color.r,Config::ambilight_color.g,Config::ambilight_color.b);
+      //  };
       break;
   }
-  if(Config::ambilight !=0 ){
+  if(Config::ambilight == 1){
      FastLED.setBrightness(Config::brightness * 255);
      FastLED.show();
  //    Serial.printf("setSecond %d",second);
@@ -107,21 +103,15 @@ void Grid_de_clock2::setTime(int hour, int minute) {
   minute = minute / 5;
   hour = hour % 12;
 
+  Led::clearSection(LED_SECTION::Minutes);
   if (singleMinute != 0) {
     // nur Minuten löschen
-    for(int i = 0; i < Led::numled_Min+Led::numled_Grid; i++) {
-      Led::ids[i].setRGB(0, 0, 0);
-    }
     Grid_de_clock2::setSingleMinute(singleMinute);
     Grid_de_clock2::showGrid(false);
     return;
-  } else {
-    for(int i = 0; i < Led::numled_Min+Led::numled_Grid; i++) {
-      Led::ids[i].setRGB(Config::color_bg.r * 0.2, Config::color_bg.g * 0.2, Config::color_bg.b * 0.2);
-    }
-    Grid_de_clock2::showGrid(false);
   }
-  
+
+  Led::clearSection(LED_SECTION::Grid);
 // Es ist
   for(int i = 0; i < 5; i++) {
     Led::ids[Led::getLedId(Grid_de_clock2::time_it_is[i])].setRGB(Config::color_fg.r, Config::color_fg.g, Config::color_fg.b);
@@ -140,12 +130,13 @@ void Grid_de_clock2::setTime(int hour, int minute) {
   }
 
   for(int h = 0; h < hourLimit; h++) {
-	if(Grid_de_clock2::time_hours[hour][h] >= 0) {
-	  Led::ids[Led::getLedId(Grid_de_clock2::time_hours[hour][h])].setRGB(Config::color_fg.r, Config::color_fg.g, Config::color_fg.b);
-	  Grid_de_clock2::showGrid(true);
-  }
+	  if(Grid_de_clock2::time_hours[hour][h] >= 0) {
+	    Led::ids[Led::getLedId(Grid_de_clock2::time_hours[hour][h])].setRGB(Config::color_fg.r, Config::color_fg.g, Config::color_fg.b);
+	    Grid_de_clock2::showGrid(true);
+    }
   }
 
+/*
   if(GRID_SINGLE_MINUTES == 1) {
 	// single minutes
 	for(int s = (NUM_LEDS - 4); s < (NUM_LEDS - 4 + singleMinute); s++) {
@@ -158,7 +149,7 @@ void Grid_de_clock2::setTime(int hour, int minute) {
     Grid_de_clock2::showGrid(true);
 	}
   }
-
+*/
 //  FastLED.setBrightness(Config::brightness * 255);
   Grid_de_clock2::showGrid(false);
 }

@@ -165,7 +165,7 @@ void Config::load() {
   Config::plugin_name = doc["plugin_name"].as<String>();
   Config::ambilight=doc["ambi_active"].as<int>();
   Config::ambilight_leds = doc["ambilight_leds"].as<int>();
-  if(Config::ambilight != 0) {
+  if(Config::ambilight != AMBILIGHT_LED) {
     Config::ambilight_leds = AMBILIGHT_LED;
   }
   Config::ambilight_startIDX=doc["ambilight_startIDX"].as<int>();

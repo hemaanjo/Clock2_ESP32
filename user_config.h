@@ -77,9 +77,9 @@ beim ESP32: 3. PIN oben rechts / OBEN=Antenne VORNE = NICHT hinten ;-)
  * 1: seconds
  * 3: permanent
  * */
-#define AMBILIGHT 1
+#define AMBILIGHT 0
 
 #define AMBILIGHT_LED 120
 #define AMBILIGHT_STARTIDX 114
 #define TYPEWRITER true
-#define TYPEWRITER_DELAY 200
+#define TYPEWRITER_DELAY 100

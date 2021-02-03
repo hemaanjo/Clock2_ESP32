@@ -43,8 +43,6 @@ void Time::loop() {
      //Serial.print(h);Serial.print(":");Serial.println(m);
       Serial.println(Time::ntpClient.getFormattedTime());
       
-      Grid::setTime(Time::hour, Time::minute);
-
     } else {
       Time::minute = m;
       Grid::setSingleMinute(Time::minute);

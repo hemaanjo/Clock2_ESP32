@@ -13,16 +13,55 @@ void Led::setup() {
   Led::numled_Ambi = Config::ambilight_leds;
   Led::numled_Grid = GRID_COLS * GRID_ROWS;
   Led::numled_Min = 4;
+  if(GRID_SINGLE_MINUTES == 0) {
+    Led::idxled_Min = 0;
+    Led::idxled_Grid = 4;
+    } else {
+    Led::idxled_Min = GRID_COLS * GRID_ROWS;
+    Led::idxled_Grid = 0;  
+    }
+  Led::idxled_Ambi = Config::ambilight_startIDX;
   
   FastLED.addLeds<NEOPIXEL, PIN4DATA>(Led::ids, Led::numled_Grid+Led::numled_Min+Led::numled_Ambi);
   FastLED.setBrightness(50);
   
-  for(int i = 0; i < Led::numled_Grid+Led::numled_Min+Led::numled_Ambi; i++) {
-    Led::ids[i].setRGB(0, 0, 0);
-  }
+  Led::clearSection(LED_SECTION::Minutes);
+  Led::clearSection(LED_SECTION::Grid);
+  Led::clearSection(LED_SECTION::Ambilight);
   
   FastLED.show();
   
+}
+
+void Led::showAmbilight() {
+  if (Config::ambilight == 2) {
+    Led::clearSection(LED_SECTION::Ambilight);
+    for(int i = Config::ambilight_startIDX; i<Config::ambilight_startIDX+Config::ambilight_leds; i++) {
+      Led::ids[i].setRGB(Config::ambilight_color.r,Config::ambilight_color.g,Config::ambilight_color.b);
+    };
+  }
+}
+
+void Led::clearSection(LED_SECTION section) {
+  int startIdx;
+  int numLed;
+  switch(section) {
+        case LED_SECTION::Minutes: 
+          startIdx = Led::idxled_Min;
+          numLed = Led::numled_Min; 
+          break;
+        case LED_SECTION::Grid:
+          startIdx = Led::idxled_Grid;
+          numLed = Led::numled_Grid; 
+          break;
+        case LED_SECTION::Ambilight:
+          startIdx = Led::idxled_Ambi;
+          numLed = Led::numled_Ambi; 
+          break;
+  }
+  for(int i = startIdx; i < numLed; i++) {
+    Led::ids[i].setRGB(0,0,0);
+  }
 }
 
 int Led::getLedId(int id) {

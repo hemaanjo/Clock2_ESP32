@@ -1,5 +1,6 @@
 #ifndef WORDCLOCK_AMBILIGHT_H
 #define WORDCLOCK_AMBILIGHT_H
+/*
 #include <Arduino.h>
 
 #include "../config.h"
@@ -13,5 +14,5 @@ class Ambilight {
 
 	static void display(int second);
 };
-
+*/
 #endif
