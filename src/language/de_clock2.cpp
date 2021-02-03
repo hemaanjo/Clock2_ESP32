@@ -24,6 +24,7 @@ void Grid_de_clock2::showGrid(bool inLoop) {
 }
 
 void Grid_de_clock2::setSingleMinute(int minute){
+  inute = minute % 5;
   Serial.printf("SingleMinute=%d\n",minute  );
   Led::clearSection(0);
   for(int i = 0; i < minute; i++) {
@@ -98,8 +99,8 @@ void Grid_de_clock2::setTime(int hour, int minute) {
   minute = minute / 5;
   hour = hour % 12;
 
-  /*Led::clearSection(0);
-  if (singleMinute != 0) {
+  Led::clearSection(0);
+  /*if (singleMinute != 0) {
     // nur Minuten löschen
     Grid_de_clock2::setSingleMinute(singleMinute);
     Grid_de_clock2::showGrid(false);
