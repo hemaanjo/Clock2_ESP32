@@ -1,4 +1,5 @@
 #include "mqtt.h"
+#include "httpServer.h"
 
 // --------------- MQTT Variablen ---------------------------------------
 //#ifdef ESP32
@@ -11,11 +12,14 @@
 //  #endif
 //#endif
 
+//WiFiClient client = server.available();
+//if (client) {
+
 PubSubClient mqtt(wclient);
 
 void WC_Mqtt::setup() {
      // ---------------------- MQTT ---------------------------------------------------
-
+  ///wclient = HttpServer::web.available();  
   IPAddress mqtt_server_ip;
   WiFi.hostByName(MQTT_server, mqtt_server_ip);
   Serial.println("MQTTGATEWAY:");

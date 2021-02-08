@@ -10,6 +10,7 @@
 #include "src/gui.h"
 #include "src/controller.h"
 #include "src/mqtt.h"
+//#include "src/restapi.h"
 
 void setup() {
   // put your setup code here, to run once:
@@ -20,6 +21,7 @@ void setup() {
   Config::checkFileSystem();
   Config::load();
   HttpServer::setup();
+  //RestAPI::setup();
   Led::setup();
   Led::firstRun();
   Time::setup();
@@ -32,6 +34,7 @@ void loop() {
   ota::loop();
   Time::loop();
   HttpServer::loop();
+  //RestAPI::loop();
   if ((Time::second % 5) == 0) {
     WC_Mqtt::loop();
   }

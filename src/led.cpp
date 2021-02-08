@@ -62,7 +62,7 @@ void Led::clearSection(int sectionID) {
           numLed = Led::numled_Ambi; 
           break;
   }
-  for(int i = startIdx; i < numLed; i++) {
+  for(int i = startIdx; i < startIdx + numLed; i++) {
     Led::ids[i].setRGB(0,0,0);
   }
 }

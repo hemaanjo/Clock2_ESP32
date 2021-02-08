@@ -33,6 +33,9 @@ void Controller::saveColor() {
     (doc["brightness"].as<double>() > Led::getMaxBrightnessPercnt()) ? Led::getMaxBrightnessPercnt() : doc["brightness"].as<double>();
 
   Config::save();
+  Time::hour -=1;
+  Time::minute -=1;
+  Time::second -=1;
   Grid::setTime(Time::hour, Time::minute);
   Led::showAmbilight();
 
